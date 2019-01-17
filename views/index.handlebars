@@ -1,0 +1,12 @@
+<div id="wrapper">
+    <h1>Note Scraper</h1>
+    <h2><i>Nanotechnology</i></h2>
+    <div id="articles">
+        {{#each article}}
+        <li>{{this.title}},{{this.link}}</li>
+        {{/each}}
+    </div>
+    <div id="notes"></div>
+</div>
+
+<script text="javascript" src="../public/app.js"></script>
