@@ -16,14 +16,23 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+
+  excerpt:{
+    type: String,
+  },
+
+  isSaved:{
+    type: Boolean,
+    default: false
+  },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Article with an associated Note
-  note:
-  {
+  notes:
+  [{
     type: Schema.Types.ObjectId,
     ref: "Note"
-  }
+  }]
 
 });
 

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="text-center" id="cardReportheader">
+            <h4>MOST RECENT NANOTECHNOLOGY NEWS</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div>
+            <a href="/"><button type="button" class="btn btn-primary" style="margin-right: 20px">Home</button></a>
+            <a href="/scrape"><button type="button" class="btn btn-primary">Scrape Articles</button></a>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="card col-md-12">
+            <div class="card-body player">
+                <div id="articles">
+                    {{#each savedArticle}}
+                    <li class="list-group-item">
+                        <h5>{{this.title}}</h5>
+                        <a href={{this.link}}>{{this.link}}</a>
+                        <p>{{this.excerpt}}</p>
+                        <button data-id={{this._id}} class="note-article">Note</button>
+                        <button data-id={{this._id}} class="delete-article">Delete Article</button>
+                    </li>
+                    {{/each}}
+                </div>
+                <div id="notes"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
