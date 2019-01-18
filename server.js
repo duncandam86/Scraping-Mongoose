@@ -28,7 +28,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nanotechnews", { useNewUrlParser: true });
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nanotechnews";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
 
