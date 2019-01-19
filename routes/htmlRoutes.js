@@ -26,17 +26,19 @@ module.exports = function (app) {
                 result.link = $(element).children("h3").children("a").attr("href");
                 result.excerpt = $(element).children(".news-box-text").children("p").text().trim();
                 
-                // console.log(result)
+                console.log(result)
+                    
                 // Create a new Article using the `result` object built from scraping
                 db.Article.create(result)
                     .then(dbArticle => {
                         // View the added result in the console
-                        console.log(dbArticle);
+                        // console.log(dbArticle);
                     })
                     .catch(err => {
                         // If an error occurred, log it
-                        console.log(err);
+                        // console.log(err);
                     });
+                
             });
             //collect all articles that was scraped and display in scrape page
             db.Article.find({ isSaved: false })
