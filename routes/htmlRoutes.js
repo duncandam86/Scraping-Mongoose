@@ -16,24 +16,26 @@ module.exports = function (app) {
             var $ = cheerio.load(response.data);
 
             // Now, we grab every h2 within an article tag, and do the following:
-            $("article h3").each(function (i, element) {
+            $("article.news-box").each(function (i, element) {
                 // Save an empty result object
                 var result = {};
 
                 // Add the text and href of every link, and save them as properties of the result object
-                result.title = $(element).children("a").text();
-                result.link = $(element).children("a").attr("href");
-                result.excerpt = $(element).parent().children("p").text().trim();
+                result.title = $(element).children("h3").children("a").text();
+                // console.log($(element).children("h3 a"))
+                result.link = $(element).children("h3").children("a").attr("href");
+                result.excerpt = $(element).children(".news-box-text").children("p").text().trim();
 
+                // console.log(result)
                 // Create a new Article using the `result` object built from scraping
                 db.Article.create(result)
                     .then(function (dbArticle) {
                         // View the added result in the console
-                        console.log(dbArticle);
+                        // console.log(dbArticle);
                     })
                     .catch(function (err) {
                         // If an error occurred, log it
-                        console.log(err);
+                        // console.log(err);
                     });
             });
             //collect all articles that was scraped and display in scrape page
