@@ -1,6 +1,6 @@
 //click button to save article 
-$(document).on("click", ".save-article", function () {
-  let thisId = $(this).attr("data-id")
+$(document).on("click", ".save-article", () => {
+  const thisId = $(this).attr("data-id")
   console.log(thisId)
   $(this).hide();
   let data = {
@@ -20,14 +20,14 @@ $(document).on("click", ".save-article", function () {
 })
 
 //delete article in saved article folder
-$(document).on("click", ".delete-article", function() {
-  var thisId = $(this).attr("data-id");
+$(document).on("click", ".delete-article", () => {
+  const thisId = $(this).attr("data-id");
   console.log(thisId)
   $.ajax({
     method: "DELETE",
     url: "/saved/" + thisId
   })
-  .then(function(data) {
+  .then(data => {
     // Log the response
     console.log(data);
     location.reload();
