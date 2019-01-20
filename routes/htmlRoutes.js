@@ -25,11 +25,11 @@ module.exports = function (app) {
                 // console.log($(element).children("h3 a"))
                 result.link = $(element).children("h3").children("a").attr("href");
                 result.excerpt = $(element).children(".news-box-text").children("p").text().trim();
-                
+
                 console.log(result)
-                    
+
                 // Create a new Article using the `result` object built from scraping
-                db.Article.create(result, {unique: true})
+                db.Article.create(result)
                     .then(dbArticle => {
                         // View the added result in the console
                         // console.log(dbArticle);
@@ -38,18 +38,19 @@ module.exports = function (app) {
                         // If an error occurred, log it
                         // console.log(err);
                     });
-                
+
             });
-            //collect all articles that was scraped and display in scrape page
-            db.Article.find({ isSaved: false }).sort({_id: 1})
-                .then(dbArticle => {
-                        // console.log(dbArticle)
-                        res.render("scrape", { article: dbArticle }); 
-                })
-                .catch(err => {
-                    res.json(err)
-                })
+
         });
+        //collect all articles that was scraped and display in scrape page
+        db.Article.find({})
+            .then(dbArticle => {
+                // console.log(dbArticle)
+                res.render("scrape", { article: dbArticle });
+            })
+            .catch(err => {
+                res.json(err)
+            })
     });
 
     // Route for getting all Articles from the db
