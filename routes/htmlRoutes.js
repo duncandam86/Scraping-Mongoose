@@ -1,6 +1,7 @@
 const db = require("../models");
 const axios = require("axios");
 const cheerio = require("cheerio");
+const moment = require("moment");
 
 module.exports = function (app) {
     // homepage route
@@ -18,39 +19,49 @@ module.exports = function (app) {
             // Now, we grab every h2 within an article tag, and do the following:
             $("article.news-box").each((i, element) => {
                 // Save an empty result object
-                let result = {};
+
 
                 // Add the text and href of every link, and save them as properties of the result object
-                result.title = $(element).children("h3").children("a").text();
+                let title = $(element).children("h3").children("a").text();
                 // console.log($(element).children("h3 a"))
-                result.link = $(element).children("h3").children("a").attr("href");
-                result.excerpt = $(element).children(".news-box-text").children("p").text().trim();
+                let link = $(element).children("h3").children("a").attr("href");
+                let excerpt = $(element).children(".news-box-text").children("p").text().trim();
+                let articleCreated = moment().format("YYYY MM DD hh:mm:ss");
 
-                console.log(result)
+                let result = {
+                    title: title,
+                    link: link,
+                    excerpt: excerpt,
+                    articleCreated: articleCreated,
+                    isSaved: false
+                };
 
-                // Create a new Article using the `result` object built from scraping
-                db.Article.create(result)
-                    .then(dbArticle => {
-                        // View the added result in the console
-                        // console.log(dbArticle);
+                // console.log(result)
+
+                //collect all articles that was scraped and display in scrape page
+                db.Article.findOne({title:title})
+                    .then(function (data) {
+                        // console.log(data);
+                        if (data === null) {
+                            db.Article.create(result)
+                                .then(function (dbArticle) {
+                                    res.json(dbArticle)
+                                });
+                        }
+                    }).catch(function (err) {
+                        res.json(err)
                     })
-                    .catch(err => {
-                        // If an error occurred, log it
-                        // console.log(err);
-                    });
-
             });
 
         });
-        //collect all articles that was scraped and display in scrape page
-        db.Article.find({})
+        db.Article.find({ isSaved: false }).sort({articleCreated: -1})
             .then(dbArticle => {
-                // console.log(dbArticle)
-                res.render("scrape", { article: dbArticle });
+                res.render("scrape", { article: dbArticle })
             })
             .catch(err => {
                 res.json(err)
             })
+
     });
 
     // Route for getting all Articles from the db
