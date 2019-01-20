@@ -43,8 +43,10 @@ module.exports = function (app) {
             //collect all articles that was scraped and display in scrape page
             db.Article.find({ isSaved: false }).sort({_id: 1})
                 .then(dbArticle => {
-                    // console.log(dbArticle)
-                    res.render("scrape", { article: dbArticle });
+                    if(dbArticle.length < 51){
+                        // console.log(dbArticle)
+                        res.render("scrape", { article: dbArticle });
+                    }    
                 })
                 .catch(err => {
                     res.json(err)

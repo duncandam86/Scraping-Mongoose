@@ -1,37 +1,43 @@
 //click button to save article 
-$(document).on("click", ".save-article",function () {
-  const thisId = $(this).attr("data-id")
-  console.log(thisId)
-  $(this).hide();
-  let data = {
-    title: $("#title-"+thisId).text(),
-    link: $("#link-"+thisId).text(),
-    excerpt: $("#excerpt-"+thisId).text(),
-    isSaved: true
-  }
+$(function () {
+  $(".save-article").on("click", function (event) {
+    var thisId = $(this).attr("data-id")
+    console.log(thisId);
+    $(this).hide();
 
-  console.log(data)
-  $.ajax({
-    method: "POST",
-    url: "/api/saved",
-    data: data,
-    dataType: "json"
+    let data = {
+      title: $("#title-" + thisId).text(),
+      link: $("#link-" + thisId).text(),
+      excerpt: $("#excerpt-" + thisId).text(),
+      isSaved: true
+    }
+
+    console.log(data)
+    $.ajax({
+      method: "POST",
+      url: "/api/saved",
+      data: data,
+      dataType: "json"
+    }).then (function (){
+      console.log("ajax call works")
+    })
   })
 })
 
+
 //delete article in saved article folder
-$(document).on("click", ".delete-article",function () {
-  const thisId = $(this).attr("data-id");
+$(document).on("click", ".delete-article", function () {
+  var thisId = $(this).attr("data-id");
   console.log(thisId)
   $.ajax({
     method: "DELETE",
     url: "/saved/" + thisId
   })
-  .then(data => {
-    // Log the response
-    console.log(data);
-    location.reload();
-  });
+    .then(data => {
+      // Log the response
+      console.log(data);
+      location.reload();
+    });
 });
 
 //note propagate once click on note button in saved article

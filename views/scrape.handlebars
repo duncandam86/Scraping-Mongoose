@@ -18,14 +18,14 @@
         <div class="card col-md-12">
             <div class="card-body player">
                 <div id="articles">
-                    {{#each_upto article 50}}
+                    {{#each article}}
                     <li class="list-group-item">
                         <h5 id="title-{{@index}}">{{this.title}}</h5>
                         <a href="{{this.link}}" id="link-{{@index}}">{{this.link}}</a>
                         <p id="excerpt-{{@index}}">{{this.excerpt}}</p>
                         <button data-id={{@index}} class="save-article">Save</button>
                     </li>
-                    {{/each_upto}}
+                    {{/each}}
                 </div>
             </div>
         </div>
