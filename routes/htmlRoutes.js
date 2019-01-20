@@ -29,7 +29,7 @@ module.exports = function (app) {
                 console.log(result)
                     
                 // Create a new Article using the `result` object built from scraping
-                db.Article.create(result)
+                db.Article.create(result, {unique: true})
                     .then(dbArticle => {
                         // View the added result in the console
                         // console.log(dbArticle);
