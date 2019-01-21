@@ -18,8 +18,6 @@ module.exports = function (app) {
 
             // Now, we grab every h2 within an article tag, and do the following:
             $("article.news-box").each((i, element) => {
-                // Save an empty result object
-
 
                 // Add the text and href of every link, and save them as properties of the result object
                 let title = $(element).children("h3").children("a").text();
@@ -27,7 +25,8 @@ module.exports = function (app) {
                 let link = $(element).children("h3").children("a").attr("href");
                 let excerpt = $(element).children(".news-box-text").children("p").text().trim();
                 let articleCreated = moment().format("YYYY MM DD hh:mm:ss");
-
+                
+                // Save an empty all fields in result object
                 let result = {
                     title: title,
                     link: link,
@@ -39,8 +38,8 @@ module.exports = function (app) {
                 // console.log(result)
 
                 //collect all articles that was scraped and display in scrape page
-                db.Article.findOne({title:title})
-                    .then(function (data) {
+                db.Article.findOne({ title: title })
+                    .then(data => {
                         // console.log(data);
                         if (data === null) {
                             db.Article.create(result)
@@ -48,13 +47,13 @@ module.exports = function (app) {
                                     res.json(dbArticle)
                                 });
                         }
-                    }).catch(function (err) {
+                    }).catch(err => {
                         res.json(err)
                     })
             });
 
         });
-        db.Article.find({ isSaved: false }).sort({articleCreated: -1})
+        db.Article.find({ isSaved: false }).sort({ articleCreated: -1 })
             .then(dbArticle => {
                 res.render("scrape", { article: dbArticle })
             })
@@ -77,21 +76,32 @@ module.exports = function (app) {
             })
     });
 
+    //Route to post saved Articles in db
+    app.post("/saved", (req, res) => {
+        db.Article.create(req.body)
+            .then(dbArticle => {
+                res.json(dbArticle)
+            }).catch(err => {
+                res.json(err)
+            });
+    });
+
     //Route to delete saved Article from db
     app.delete("/saved/:id", (req, res) => {
         db.Article.deleteOne({ _id: req.params.id })
             .then(removed => {
                 res.json(removed);
-            }).catch((err, removed) => {
+            }).catch(err => {
                 // If an error occurred, send it to the client
                 res.json(err);
             });
     });
 
+
     // Route for grabbing a specific Article by id, populate it with it's note
-    app.get("/notes/:id", (req, res) => {
+    app.get("/articles/:id", (req, res) => {
         db.Article.findOne({ _id: req.params.id })
-            .populate("notes")
+            .populate("note")
             .then(dbArticle => {
                 res.json(dbArticle)
             }).catch(err => {
@@ -99,8 +109,24 @@ module.exports = function (app) {
             })
     });
 
-    // Route for deleting note 
-    app.delete("/notes/:id", (req, res) => {
+
+    //Route to post notes in db
+    app.post("/articles/:id", (req, res) => {
+        db.Note.create(req.body)
+            .then(dbNote => {
+                return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: {note: dbNote._id} }, { new: true });
+            })
+            .then(dbArticle => {
+                console.log(dbArticle);
+                res.json(dbArticle)
+            }).catch(err => {
+                res.json(err)
+            })
+    });
+
+
+    // Route for deleting article and its associated notes 
+    app.delete("/articles/:id", (req, res) => {
         db.Note.deleteOne({ _id: req.params.id })
             .then(remove => {
                 res.json(remove)

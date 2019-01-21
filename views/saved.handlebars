@@ -14,6 +14,7 @@
 
     <br>
     <div class="row">
+        <!--Body-->
         <div class="card col-md-12">
             <div class="card-body player">
                 <div id="articles">
@@ -22,14 +23,37 @@
                         <h5>{{this.title}}</h5>
                         <a href={{this.link}}>{{this.link}}</a>
                         <p>{{this.excerpt}}</p>
-                        <button data-id={{this._id}} class="note-article">Note</button>
+                        <button data-id={{this._id}} class="note-article" type="button" class="btn btn-primary"
+                            data-toggle="modal" data-target="#exampleModalLong">
+                            Note
+                        </button>
                         <button data-id={{this._id}} class="delete-article">Delete Article</button>
                     </li>
                     {{/each}}
                 </div>
-                <div id="notes"></div>
             </div>
         </div>
+
+        <!-- Button trigger modal -->
+        {{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+            Launch demo modal
+        </button> --}}
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>

@@ -3,8 +3,6 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars")
 const PORT = process.env.PORT || 3000;
-const db = require("./models")
-const moment = require("moment");
 // Initialize Express
 const app = express();
 
@@ -34,8 +32,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+require("./routes/Routes")(app);
 
 // Start the server
 app.listen(PORT, () => {
