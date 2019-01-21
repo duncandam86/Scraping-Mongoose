@@ -1,13 +1,51 @@
+body{
+    background-color: lightsalmon;
+}
+.nav-link{
+    color: black;
+    font-family: 'Rubik', sans-serif;
+}
 .jumbotron{
-    background-image: url(./img/Tech.jpg);
-    height: 300px
+    background-image: url(./img/technology-background-data-grid-or-disco-background_4j1vbphl__F0000.png);
+    height: 500px;
+    border-radius: 0%;
+    opacity: 0.8
 }
 
+
 .h4-title{
+    margin-top: 100px;
     color: white;
-    font-size: 40px
+    font-size: 60px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 900;
+    opacity: 1
+
+}
+
+.h5-title{
+    color: white;
+    font-size: 40px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: bold;
+    opacity: 1
+
 }
 
 .route-button{
-    margin-left: 450px
+    margin-left: 470px
 }
+
+.card {
+    background-color: grey;
+    border-radius: 20px;
+}
+
+.btn {
+    border-radius: 15px;
+    color: white;
+    opacity: 1
+}
+.list-group-item {
+    border-radius: 15px;
+  }
