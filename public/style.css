@@ -7,7 +7,7 @@ body{
 }
 .jumbotron{
     background-image: url(./img/technology-background-data-grid-or-disco-background_4j1vbphl__F0000.png);
-    height: 500px;
+    max-height: 100%;
     border-radius: 0%;
     opacity: 0.8
 }
@@ -48,4 +48,144 @@ body{
 }
 .list-group-item {
     border-radius: 15px;
-  }
+}
+
+footer {
+    width: 100%;
+    line-height: 1;
+    padding: 10px 0;
+    background-color: lightblue;
+    font-family: 'Baloo Thambi', cursive;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    margin: auto auto 0 auto;
+}
+
+#imageFooter{
+    max-width: 3%;
+}
+
+/* responsive */
+@media (min-width: 320px){
+    .route-button{
+        margin-left: 10%
+    }
+    .h4-title{
+        margin-top: 50px;
+        color: white;
+        font-size: 25px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 900;
+        opacity: 1
+    }
+    #scrape-button, #saved-button{
+        margin-bottom: 20px
+    }
+    .h5-title{
+        color: white;
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
+        opacity: 1
+    
+    }
+}
+@media (min-width: 568px){
+    .route-button{
+        margin-left: 25%
+    }
+    .h4-title{
+        margin-top: 50px;
+        color: white;
+        font-size: 30px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 900;
+        opacity: 1
+    }
+    #scrape-button, #saved-button{
+        margin-bottom: 20px
+    }
+    .h5-title{
+        color: white;
+        font-size: 20px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
+        opacity: 1
+    
+    }
+
+}
+
+@media (min-width: 768px){
+    .route-button{
+        margin-left: 32%
+    }
+    .h4-title{
+        margin-top: 40px;
+        color: white;
+        font-size: 40px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 900;
+        opacity: 1
+    }
+    #scrape-button, #saved-button{
+        margin-bottom: 20px
+    }
+    .h5-title{
+        color: white;
+        font-size: 25px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
+        opacity: 1
+    }
+}
+
+@media (min-width: 920px){
+    .route-button{
+        margin-top: 10px;
+        margin-left: 10px
+    }
+    .h4-title{
+        margin-top: 50px;
+        color: white;
+        font-size: 40px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 900;
+        opacity: 1
+    }
+    #scrape-button, #saved-button{
+        margin-bottom: 20px
+    }
+    .h5-title{
+        color: white;
+        font-size: 25px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
+        opacity: 1
+    }
+}
+
+@media (min-width: 1024px){
+    .route-button{
+        margin-left: 40%;
+    }
+    .h4-title{
+        margin-top: 50px;
+        color: white;
+        font-size: 45px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 900;
+        opacity: 1
+    }
+    #scrape-button, #saved-button{
+        margin-bottom: 20px
+    }
+    .h5-title{
+        color: white;
+        font-size: 30px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
+        opacity: 1
+    }
+}
