@@ -1,18 +1,14 @@
+<div class="jumbotron">
+    <div class="text-center" id="cardReportheader">
+        <h4 class="h4-title">RECENT SAVED ARTICLES</h4>
+    </div>
+    <br>
+    <div class="route-button">
+        <a href="/"><button type="button" class="btn btn-primary" style="margin-right: 20px">Home</button></a>
+        <a href="/scrape"><button type="button" class="btn btn-primary">Scrape Articles</button></a>
+    </div>
+</div>
 <div class="container">
-    <div class="row">
-        <div class="text-center" id="cardReportheader">
-            <h4>MOST RECENT NANOTECHNOLOGY NEWS</h4>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div>
-            <a href="/"><button type="button" class="btn btn-primary" style="margin-right: 20px">Home</button></a>
-            <a href="/scrape"><button type="button" class="btn btn-primary">Scrape Articles</button></a>
-        </div>
-    </div>
-
-    <br>
     <div class="row">
         <!--Body-->
         <div class="card col-md-12">
@@ -23,11 +19,11 @@
                         <h5>{{this.title}}</h5>
                         <a href={{this.link}}>{{this.link}}</a>
                         <p>{{this.excerpt}}</p>
-                        <button data-id={{this._id}} class="note-article" type="button" class="btn btn-primary"
+                        <button data-id={{this._id}} class="note-article btn btn-success" type="button" class="btn btn-primary"
                             data-toggle="modal" data-target="#exampleModalLong">
                             Note
                         </button>
-                        <button data-id={{this._id}} class="delete-article">Delete Article</button>
+                        <button data-id={{this._id}} class="delete-article btn btn-danger">Delete Article</button>
                     </li>
                     {{/each}}
                 </div>

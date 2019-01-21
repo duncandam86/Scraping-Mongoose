@@ -1,0 +1,13 @@
+.jumbotron{
+    background-image: url(./img/Tech.jpg);
+    height: 300px
+}
+
+.h4-title{
+    color: white;
+    font-size: 40px
+}
+
+.route-button{
+    margin-left: 450px
+}

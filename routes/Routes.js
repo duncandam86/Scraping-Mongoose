@@ -25,7 +25,7 @@ module.exports = function (app) {
                 let link = $(element).children("h3").children("a").attr("href");
                 let excerpt = $(element).children(".news-box-text").children("p").text().trim();
                 let articleCreated = moment().format("YYYY MM DD hh:mm:ss");
-                
+
                 // Save an empty all fields in result object
                 let result = {
                     title: title,
@@ -37,11 +37,12 @@ module.exports = function (app) {
 
                 // console.log(result)
 
-                //collect all articles that was scraped and display in scrape page
+                //collect all articles and find the one with title
                 db.Article.findOne({ title: title })
                     .then(data => {
                         // console.log(data);
                         if (data === null) {
+                            //if there are articles, put it in the db
                             db.Article.create(result)
                                 .then(function (dbArticle) {
                                     res.json(dbArticle)
@@ -53,8 +54,10 @@ module.exports = function (app) {
             });
 
         });
+        //put all found articles on DOM
         db.Article.find({ isSaved: false }).sort({ articleCreated: -1 })
             .then(dbArticle => {
+                //rendering on scrape page
                 res.render("scrape", { article: dbArticle })
             })
             .catch(err => {
@@ -62,20 +65,6 @@ module.exports = function (app) {
             })
 
     });
-
-    // Route for getting all Articles from the db
-    app.get("/saved", (req, res) => {
-        // TODO: Finish the route so it grabs all of the articles
-        db.Article.find({ isSaved: true })
-            .then(dbArticle => {
-                // console.log(dbArticle)
-                res.render("saved", { savedArticle: dbArticle });
-            })
-            .catch(err => {
-                res.json(err)
-            })
-    });
-
     //Route to post saved Articles in db
     app.post("/saved", (req, res) => {
         db.Article.create(req.body)
@@ -84,6 +73,18 @@ module.exports = function (app) {
             }).catch(err => {
                 res.json(err)
             });
+    });
+
+    // Route for getting all saved Articles from db and render it on saved page
+    app.get("/saved", (req, res) => {
+        db.Article.find({ isSaved: true })
+            .then(dbArticle => {
+                // console.log(dbArticle)
+                res.render("saved", { savedArticle: dbArticle });
+            })
+            .catch(err => {
+                res.json(err)
+            })
     });
 
     //Route to delete saved Article from db
@@ -114,7 +115,7 @@ module.exports = function (app) {
     app.post("/articles/:id", (req, res) => {
         db.Note.create(req.body)
             .then(dbNote => {
-                return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: {note: dbNote._id} }, { new: true });
+                return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { note: dbNote._id } }, { new: true });
             })
             .then(dbArticle => {
                 console.log(dbArticle);
