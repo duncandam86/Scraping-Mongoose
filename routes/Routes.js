@@ -3,9 +3,9 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const moment = require("moment");
 
-module.exports = function (app) {
+module.exports = app => {
     // homepage route
-    app.get("/", function (req, res) {
+    app.get("/", (req, res) => {
         res.render("index")
     });
 
@@ -17,17 +17,17 @@ module.exports = function (app) {
             const $ = cheerio.load(response.data);
 
             // Now, we grab every h2 within an article tag, and do the following:
-            $("article.news-box").each((i, element) => {
+            $("article.news-detail-box").each((i, element) => {
 
                 // Add the text and href of every link, and save them as properties of the result object
-                let title = $(element).children("h3").children("a").text();
+                const title = $(element).children("h3").children("a").text();
                 // console.log($(element).children("h3 a"))
-                let link = $(element).children("h3").children("a").attr("href");
-                let excerpt = $(element).children(".news-box-text").children("p").text().trim();
-                let articleCreated = moment().format("YYYY MM DD hh:mm:ss");
+                const link = $(element).children("h3").children("a").attr("href");
+                const excerpt = $(element).children(".news-box-text").children("p").text().trim();
+                const articleCreated = moment().format("YYYY MM DD hh:mm:ss");
 
                 // Save an empty all fields in result object
-                let result = {
+                const result = {
                     title: title,
                     link: link,
                     excerpt: excerpt,
@@ -55,7 +55,7 @@ module.exports = function (app) {
 
         });
         //put all found articles on DOM
-        db.Article.find({ isSaved: false }).sort({ articleCreated: -1 })
+        db.Article.find({ isSaved: false })
             .then(dbArticle => {
                 //rendering on scrape page
                 res.render("scrape", { article: dbArticle })
